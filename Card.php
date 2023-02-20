@@ -2,7 +2,7 @@
 class Card
 {
     public string $num;
-    public ?string $valid;
+    public string $valid;
     public string $nameOfEmit;
 
     public function __construct(string $cardNum)
