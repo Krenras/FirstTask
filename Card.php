@@ -16,7 +16,7 @@ class Card
     public function validationOfCardNum(string $cardNum): string|null
     {
         $cardNum = strrev($cardNum);
-        $controllSum = 0;
+        $controlSum = 0;
         for ($i = 0, $j = strlen($cardNum); $i < $j; $i++) {
             if (($i % 2) == 0) {
                 $val = $cardNum[$i];
@@ -24,12 +24,12 @@ class Card
                 $val = $cardNum[$i] * 2;
                 if ($val > 9) $val -= 9;
             }
-            $controllSum += $val;
+            $controlSum += $val;
         }
 
-        if (($controllSum % 10) == 0) {
+        if (($controlSum % 10) == 0) {
             return "Valid";
-        } elseif (($sum % 10) !== 0) {
+        } elseif (($controlSum % 10) !== 0) {
             return "Invalid";
         }
         return null;
@@ -37,13 +37,20 @@ class Card
 
     public function getNameOfEmit(string $cardNum): string
     {
-        if (isMasterCard($cardNum)) {
+        if ($this->isMasterCard($cardNum))
+        {
             return "MasterCard";
-        } elseif (isVisa($cardNum)) {
+        }
+        elseif ($this->isVisa($cardNum))
+        {
             return "Visa";
-        } elseif (isMir($cardNum)) {
+        }
+        elseif ($this->isMir($cardNum))
+        {
             return "Мир";
-        } else {
+        }
+        else
+        {
             return "Card isn't valid";
         }
     }
@@ -62,7 +69,7 @@ class Card
 
     private function isVisa(string $cardNum):bool
     {
-        if(preg_match('/^(5[1-5]|62|67)+[0-9]{11,17}$/', $cardNum))
+        if(preg_match('/^(4[0-9]|14)+[0-9]{11,17}$/', $cardNum))
         {
             return true;
         }
@@ -74,7 +81,7 @@ class Card
 
     private function isMir(string $cardNum):bool
     {
-        if(preg_match('/^(5[1-5]|62|67)+[0-9]{11,17}$/', $cardNum))
+        if(preg_match('/^(220)+[0-9]{11,17}$/', $cardNum))
         {
             return true;
         }
